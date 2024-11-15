@@ -1,6 +1,5 @@
 function privscope(){
-  let socket = io("//")
-  //let socket = io("https://bonziworld.org");
+  let socket = io("https://bonziworld.org");
   delete io;
   let moving = false;
   let error_id = "error_disconnect";
