@@ -140,10 +140,10 @@ function privscope(){
   colors.forEach(color=>{
       if(types[color] != undefined){
           let sheet = sheets[types[color]];
-          spritesheets[color] = new createjs.SpriteSheet({images: ["./img/agents/"+color+".png"], frames: {width: sheet.spritew, height: sheet.spriteh}, animations: sheet.anims})
+          spritesheets[color] = new createjs.SpriteSheet({images: ["./images/"+color+".png"], frames: {width: sheet.spritew, height: sheet.spriteh}, animations: sheet.anims})
 
       } else{
-          spritesheets[color] = new createjs.SpriteSheet({images: ["./img/agents/"+color+".png"], frames: {width: 200, height: 160}, animations: sheets.bonzi.anims})
+          spritesheets[color] = new createjs.SpriteSheet({images: ["./images/"+color+".png"], frames: {width: 200, height: 160}, animations: sheets.bonzi.anims})
       }
   })
 
