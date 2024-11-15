@@ -182,6 +182,44 @@ function privscope(){
               </table>
               `, undefined, undefined, undefined, undefined, [{name: "ACCEPT", callback: ()=>{changeSettings($("disCC").checked, $("bgName").value, $("autojoin").checked, $("autojoin_name").value, $("theme_name").value, $("color_name").value);location.reload();}}, {name: "CANCEL"}])
       },
+    "m3u8": (url) => {
+    if (!url) {
+        alert("Please provide a valid M3U8 stream URL");
+        return;
+    }
+    
+    // Create a video element if it doesn't exist
+    if (!$("bg_video")) {
+        $("bg").innerHTML = `
+            <video id="bg_video" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;" 
+                   autoplay loop>
+                Your browser does not support the video tag.
+            </video>
+        `;
+    }
+    
+    let videoElement = $("bg_video");
+    
+    // Check if the browser supports HLS
+    if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
+        videoElement.src = url;
+    } 
+    // If native HLS is not supported, use hls.js
+    else if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(url);
+        hls.attachMedia(videoElement);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            videoElement.play();
+        });
+    } 
+    else {
+        alert("Your browser does not support HLS streaming");
+    }
+    
+    // Ensure the video plays and loops
+    videoElement.play();
+}
   }
 
 
